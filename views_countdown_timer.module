@@ -1,0 +1,57 @@
+<?php
+/**
+ * Implements hook_field_formatter_info().
+ */
+function views_countdown_timer_field_formatter_info() {
+    return array(
+        'countdown_timer' => array(
+            'label' => t('Countdown Timer'),
+            'field types' => array('datetime'),
+        ),
+    );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function views_countdown_timer_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+    $output = array();
+
+    foreach ($items as $delta => $item) {
+        $event_timestamp = strtotime($item['value']);
+
+        $output[$delta] = array(
+            '#markup' => '<div id="timezoneElement" data-timezone="Europe/London" style="display: none;"></div>' .
+            '<span class="views-countdown-timer" data-time="' . ($event_timestamp * 1000) . '"></span>',
+            '#attached' => array(
+                'js' => array(
+                    backdrop_get_path('module', 'views_countdown_timer') . '/views_countdown_timer.js',
+                ),
+            ),
+        );
+    }
+
+    return $output;
+}
+
+function views_countdown_timer_preprocess_views_view(&$variables) {
+    // Ensure we are modifying the correct view.
+    if ($variables['view']->name == 'your_view_name') {
+        foreach ($variables['rows'] as &$row) {
+            // Get the event date field value.
+            if (!empty($row['field_event_date'])) {
+                $event_timestamp = strtotime($row['field_event_date']);
+
+                // Inject the countdown field into the row.
+                $row['views_countdown_timer'] = '<span class="views-countdown-timer" data-time="' . $event_timestamp * 1000 . '"></span>';
+            }
+        }
+    }
+    $site_timezone = config_get('system.date', 'default_timezone');
+
+
+    // Append JavaScript to Views output
+    $variables['view']->result[] = [
+        '#markup' => '<script>var siteTimezone = "' . htmlspecialchars($site_timezone, ENT_QUOTES) . '";</script>',
+    ];
+}

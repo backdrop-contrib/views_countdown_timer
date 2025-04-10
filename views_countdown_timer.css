@@ -1,0 +1,44 @@
+.flip-unit {
+    position: relative;
+    width: 50px;
+    height: 80px;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 80px;
+    overflow: hidden;
+    border: 2px solid black;
+    background-color: #222;
+    color: white;
+    perspective: 200px; /* Added perspective for 3D effect */
+}
+
+.top, .bottom {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.top {
+    top: 0;
+}
+
+.bottom {
+    bottom: 0;
+    transform-origin: center top;
+    transform: rotateX(180deg);
+}
+
+/* Ensure the flip effect displays correctly */
+.flip {
+    animation: flipAnimation 0.6s ease-in-out forwards; /* Added 'forwards' so the final frame stays */
+}
+
+@keyframes flipAnimation {
+    0% { transform: rotateX(0); }
+    100% { transform: rotateX(-180deg); }
+}

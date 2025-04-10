@@ -1,8 +1,9 @@
 # Views Countdown Timer
-Adds a countdown field to a date value in a View.
+Format a Date field to count down to the date entered.
 
-Displays a count down to a given date in a View.
+i.e.  "2 days, 3 hours, 33 minutes and 20 seconds."
 
+using jquery to change the display in realtime.
 
 ## Initial version
 This is an alpha release proof of concept and for code review

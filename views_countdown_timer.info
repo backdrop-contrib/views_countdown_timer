@@ -1,7 +1,10 @@
 name = Views Countdown Timer
-description = "Adds a countdown field to a view using jQuery."
+description = Change a date field in a View to a countdown timer."
 package = Custom
 backdrop = 1.x
+
+version = 0.0.1.alpha
+
 dependencies[] = views
 
 ;stylesheets[all][] = views_countdown_timer.css

@@ -1,4 +1,4 @@
-# Views Countdown Timer
+# Views Countdown Timer (alpha release)
 Format a Date field to count down to the date entered.
 
 i.e.  "2 days, 3 hours, 33 minutes and 20 seconds."
